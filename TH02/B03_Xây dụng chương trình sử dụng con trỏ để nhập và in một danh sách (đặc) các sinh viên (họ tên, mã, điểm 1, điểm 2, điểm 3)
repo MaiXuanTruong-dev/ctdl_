@@ -1,0 +1,53 @@
+#include <stdio.h>
+#include <stdlib.h>
+typedef struct {
+    char hoten[30];
+    int masv;
+    float d1, d2, d3;
+} SinhVien;
+void nhapSV(SinhVien *sv) {
+    printf("  Ho ten: ");
+    scanf(" %29[^\n]", sv->hoten);
+    printf("  Ma sv: ");
+    scanf("%d", &sv->masv);
+    printf("  Diem 1: ");
+    scanf("%f", &sv->d1);
+    printf("  Diem 2: ");
+    scanf("%f", &sv->d2);
+    printf("  Diem 3: ");
+    scanf("%f", &sv->d3);
+}
+void inSV(const SinhVien *sv) {
+    printf("%-30s %-8d %-8.2f %-8.2f %-8.2f\n",
+           sv->hoten, sv->masv, sv->d1, sv->d2, sv->d3);
+}
+void nhapDS(SinhVien *ds, int n) {
+    for (int i = 0; i < n; i++) {
+        printf("Sinh vien thu %d:\n", i + 1);
+        nhapSV(ds + i);          
+    }
+}
+void inDS(const SinhVien *ds, int n) {
+    printf("\n%-30s %-8s %-8s %-8s %-8s\n",
+           "Ho ten", "Ma", "Diem 1", "Diem 2", "Diem 3");
+    for (const SinhVien *p = ds; p < ds + n; p++) {
+        inSV(p);           
+    }
+}
+int main() {
+    int n;
+    printf("Nhap so sinh vien: ");
+    if (scanf("%d", &n) != 1 || n <= 0) {
+        printf("So sinh vien khong hop le!\n");
+        return 1;
+    }
+    SinhVien *ds = (SinhVien *)malloc(n * sizeof(SinhVien));
+    if (ds == NULL) {
+        printf("Khong du bo nho!\n");
+        return 1;
+    }
+    nhapDS(ds, n);
+    inDS(ds, n);
+    free(ds);
+    return 0;
+}
