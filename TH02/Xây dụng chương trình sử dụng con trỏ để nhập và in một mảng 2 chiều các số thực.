@@ -1,0 +1,45 @@
+#include <stdio.h>
+#include <stdlib.h>
+int main() {
+    int h, c;
+    printf("Nhap so hang va so cot: ");
+    if (scanf("%d%d", &h, &c) != 2 || h <= 0 || c <= 0) {
+        printf("Du lieu khong hop le!\n");
+        return 1;
+    }
+    int **ma = (int **)malloc(h * sizeof(int *));
+    if (ma == NULL) {
+        printf("Khong du bo nho!\n");
+        return 1;
+    }
+    for (int i = 0; i < h; i++) {
+        ma[i] = (int *)malloc(c * sizeof(int));
+        if (ma[i] == NULL) {
+            printf("Khong du bo nho tai dong %d!\n", i);
+            // giai phong cac dong da cap phat truoc do
+            for (int k = 0; k < i; k++) {
+                free(ma[k]);
+            }
+            free(ma);
+            return 1;
+        }
+    }
+    printf("Nhap %d phan tu cua ma tran:\n", h * c);
+    for (int i = 0; i < h; i++) {
+        for (int j = 0; j < c; j++) {
+            scanf("%d", &ma[i][j]);
+        }
+    }
+    printf("Ma tran %dx%d vua tao:\n", h, c);
+    for (int i = 0; i < h; i++) {
+        for (int j = 0; j < c; j++) {
+            printf("%d\t", ma[i][j]);
+        }
+        printf("\n");
+    }
+    for (int i = 0; i < h; i++) {
+        free(ma[i]);
+    }
+    free(ma);
+    return 0;
+}
