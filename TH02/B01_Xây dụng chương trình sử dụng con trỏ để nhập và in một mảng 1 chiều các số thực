@@ -1,0 +1,33 @@
+#include <stdio.h>
+#include <stdlib.h>
+void nhapMang(float *a, int n) {
+    for (int i = 0; i < n; i++) {
+        printf("a[%d] = ", i);
+        scanf("%f", a + i);  
+    }
+}
+void inMang(float *a, int n) {
+    for (int i = 0; i < n; i++) {
+        printf("%.2f\t", *(a + i));
+    }
+    printf("\n");
+}
+int main() {
+    int n;
+    printf("Nhap so phan tu: ");
+    if (scanf("%d", &n) != 1 || n <= 0) {
+        printf("So phan tu khong hop le!\n");
+        return 1;
+    }
+    float *a = (float *)malloc(n * sizeof(float));
+    if (a == NULL) {
+        printf("Khong du bo nho!\n");
+        return 1;
+    }
+    printf("Nhap cac phan tu cua mang:\n");
+    nhapMang(a, n);
+    printf("Mang vua nhap:\n");
+    inMang(a, n);
+    free(a);
+    return 0;
+}
